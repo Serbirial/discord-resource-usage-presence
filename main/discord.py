@@ -6,7 +6,19 @@ from windows import (
 )
 import time
 
-from presence import Connection
+from json import loads
+
+from .presence import Connection
+
+
+try:
+	with open("config.json", "r") as data:
+		CONFIG = loads(data.read())
+except FileNotFoundError:
+	CONFIG = {
+		"interval": 5,
+		"tray_icon": "./static/tray.png"
+		}
 
 CPU_MODEL = cpu.get_model()
 GPU_MODEL = gpu.get_model()
@@ -23,7 +35,7 @@ class DiscordPcStatus:
 	def __init__(self) -> None:
 		self.is_closing = False
 
-		self.tray = systray.SystemTray(self)
+		self.tray = systray.SystemTray(self, CONFIG["tray_icon"])
 
 		self.discord_connection = Connection()
 
@@ -56,10 +68,5 @@ class DiscordPcStatus:
 				elif current_model == GPU_MODEL:
 					current_model = CPU_MODEL
 
-			time.sleep(3)
+			time.sleep(CONFIG['interval'])
 		self.cleanup()
-
-if __name__ == "__main__":
-	DiscordRPC = DiscordPcStatus()
-	DiscordRPC.start()
-	exit()

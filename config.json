@@ -1,0 +1,4 @@
+{
+	"interval": 3,
+	"tray_icon": "./static/tray.png"
+}
