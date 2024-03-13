@@ -3,6 +3,7 @@ import psutil
 import subprocess
 import time
 
+
 startupinfo = subprocess.STARTUPINFO()
 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
@@ -10,7 +11,7 @@ def get_model():
 	p = subprocess.Popen(
 		["powershell.exe", 
 		"-ExecutionPolicy", "Bypass", 
-		"-File", ".\\windows\\cpu_name.ps1"], 
+		"-File", ".\\scripts\\windows\\cpu_name.ps1"], 
 		stdout=subprocess.PIPE,
 		startupinfo=startupinfo
 		)
@@ -32,7 +33,7 @@ class CpuWatcher:
 		p = subprocess.Popen(
 			["powershell.exe", 
 			"-ExecutionPolicy", "Bypass", 
-			"-File", ".\\windows\\cpu_frequency.ps1"], 
+			"-File", ".\\scripts\\windows\\cpu_frequency.ps1"], 
 			stdout=subprocess.PIPE,
 			startupinfo=startupinfo
 			)

@@ -34,7 +34,7 @@ class GpuWatcher:
 		p = subprocess.Popen(
 			["powershell.exe", 
 			"-ExecutionPolicy", "Bypass", 
-			"-File", ".\\windows\\gpu_information.ps1"], 
+			"-File", ".\\scripts\\windows\\gpu_information.ps1"], 
 			stdout=subprocess.PIPE,
 			startupinfo=startupinfo
 			)

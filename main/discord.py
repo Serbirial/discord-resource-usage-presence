@@ -6,6 +6,7 @@ from windows import (
 )
 import time
 
+from sys import exit
 from json import loads
 
 from .presence import Connection
@@ -17,7 +18,8 @@ try:
 except FileNotFoundError:
 	CONFIG = {
 		"interval": 5,
-		"tray_icon": "./static/tray.png"
+		"tray_icon": "static/tray.png",
+		"exe": False
 		}
 
 CPU_MODEL = cpu.get_model()
@@ -41,6 +43,7 @@ class DiscordPcStatus:
 
 		self.cpustats = cpu.CpuWatcher()
 		self.gpustats = gpu.GpuWatcher()
+
 		self.memstats = memory.MemoryWatcher()
 		self.current_model = CPU_MODEL
 
@@ -51,7 +54,10 @@ class DiscordPcStatus:
 		self.gpustats.cleanup()
 		self.memstats.cleanup()
 		print("Exiting...")
-		exit()
+		try:
+			exit() # FIXME causes issues with windows exe
+		except:
+			pass
 
 	def start(self):
 		current_model = CPU_MODEL
